@@ -1,7 +1,7 @@
 import React from 'react'
-import Calender from '../components/Calender.tsx'
+import Calender from '../components/Calender'
 import '@coreui/coreui-pro/dist/css/coreui.min.css';
-import Graph from '../components/Graph.tsx';
+import Graph from '../components/Graph';
 
 function Dashboard() {
   return (

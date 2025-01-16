@@ -1,20 +1,20 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+} from "../components/ui/Dialog";
+import { Textarea } from "../components/ui/Textarea";
+import React, { JSX } from "react";
 
 export default function Box(): JSX.Element {
   const [open, setOpen] = React.useState(true);
 
   return (
-    <div className="w-[1440px] h-[915px] bg-[url(/desktop-10.png)] bg-cover">
+    <div className="w-[1440px] h-[915px] bg-gradient-to-r from-blue-500 to-green-500 bg-cover">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="w-[716px] max-w-none">
           <DialogHeader>

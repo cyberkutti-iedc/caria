@@ -3,9 +3,9 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-  } from "@/components/ui/accordion";
-  import { Card, CardContent } from "@/components/ui/card";
-  import React from "react";
+  } from "../components/ui/Accordion";
+  import { Card, CardContent } from "../components/ui/card";
+  import React, { JSX } from "react";
   
   const securityOptions = [
     {
@@ -52,6 +52,7 @@ import {
                     <Card>
                       <CardContent className="p-4">
                         {/* Content for each security option would go here */}
+                        <div></div>
                       </CardContent>
                     </Card>
                   </AccordionContent>

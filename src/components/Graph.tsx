@@ -24,11 +24,11 @@ export default function Graph() {
                 ticks: {
                     stepSize: 4,
                     beginAtZero: true, // Start y-axis at 0
-                    callback: function(value) {
-                        if (value === 0) {
+                    callback: function(tickValue: string | number) {
+                        if (tickValue === 0) {
                             return ''; // Do not display the 0 tick label
                         }
-                        return value;
+                        return tickValue;
                     }
                 }
             }

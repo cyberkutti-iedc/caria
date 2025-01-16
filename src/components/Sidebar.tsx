@@ -75,7 +75,15 @@ export function SidebarContainer({ children }: SidebarProps) {
   );
 }
 
-export function SidebarItem({ icon, text, active, alert, onClick }) {
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  text: string;
+  active: boolean;
+  alert: boolean;
+  onClick: () => void;
+}
+
+export function SidebarItem({ icon, text, active, alert, onClick }: SidebarItemProps) {
   const { expanded } = useContext(SidebarContext);
 
   return (

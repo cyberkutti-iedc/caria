@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from "./pages/Dashboard.tsx";
-import Sidebar from "./components/Sidebar.tsx";
-import Settings from "./pages/settings.tsx";
-// import Chatbot from "./pages/chatbot.tsx";
+import Dashboard from "./pages/Dashboard";
+import Sidebar from "./components/Sidebar";
+import Settings from "./pages/settings";
+// import Chatbot from "./pages/chatbot";
 import "./index.css";
 import React from "react";
 
