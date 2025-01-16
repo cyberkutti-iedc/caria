@@ -10,9 +10,9 @@ function Dashboard() {
         <div className='row-span-1 col-span-1 bg-slate-300'></div>
         <div className='row-span-1 col-span-1 bg-slate-300'></div>
         <div className='row-span-3 col-span-4 border-2 p-2 rounded border-slate-300'><Graph /></div>
-        <div className='row-span-3 col-span-2'><Calender /></div>
-        <div className='row-span-3 col-span-3 bg-slate-500'></div>
-        <div className='row-span-3 col-span-2 col-start-5'></div>
+        <div className='row-span-4 col-span-2 border-2 p-1 rounded border-slate-300 mb-5'><Calender /></div>
+        <div className='row-span-2 col-span-3 bg-slate-500'></div>
+        <div className='row-span-2 col-span-2 col-start-5'></div>
       </div>
   )
 }
