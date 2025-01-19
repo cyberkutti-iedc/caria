@@ -8,6 +8,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/base": "^5.0.0-beta.68",
+    "@mui/x-charts": "^7.24.0",
     "@mui/x-date-pickers": "^7.23.6",
     "@types/chart.js": "^2.9.41",
     "chart.js": "^4.4.7",

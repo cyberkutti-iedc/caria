@@ -24,7 +24,7 @@ export default function Graph() {
                 ticks: {
                     stepSize: 4,
                     beginAtZero: true, // Start y-axis at 0
-                    callback: function(tickValue: string | number) {
+                    callback: function (tickValue: string | number) {
                         if (tickValue === 0) {
                             return ''; // Do not display the 0 tick label
                         }
@@ -35,6 +35,7 @@ export default function Graph() {
         },
         plugins: {
             legend: {
+                display: true,
                 labels: {
                     usePointStyle: true,
                     pointStyle: 'circle',
