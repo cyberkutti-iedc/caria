@@ -1,93 +1,24 @@
-import {
-    BeakerIcon,
-    BellDotIcon,
-    EyeIcon,
-    Globe2Icon,
-    HeadphonesIcon,
-    LockIcon,
-    UserIcon,
-} from "lucide-react";
 import React from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
-
-const settingsCards = [
-    {
-        icon: <UserIcon className="w-8 h-8" />,
-        title: "Personal info",
-        description: "Provide personal details and how we can reach you",
-    },
-    {
-        icon: <LockIcon className="w-8 h-8" />,
-        title: "Login & security",
-        description: "Update your password and secure your account",
-    },
-    {
-        icon: <EyeIcon className="w-8 h-8" />,
-        title: "Privacy & sharing",
-        description:
-            "Manage your personal data, connected services, and data sharing settings",
-    },
-    {
-        icon: <Globe2Icon className="w-8 h-8" />,
-        title: "Global preferences",
-        description: "Set your default language, metrics, and timezone",
-    },
-    {
-        icon: <BellDotIcon className="w-8 h-8" />,
-        title: "Notifications",
-        description:
-            "Choose notification preferences and how you want to be contacted",
-    },
-    {
-        icon: <HeadphonesIcon className="w-8 h-8" />,
-        title: "Feedback & Support",
-        description: "Contact support or report an issue.",
-    },
-];
+import { useState } from "react";
+import Default from "../components/Settings/Default";
+import Notifications from "../components/Settings/Notifications";
+import Feedback from "../components/Settings/FeedbackSupport";
+import Layout from "../components/Settings/Layout";
+import PersonalInfo from "../components/Settings/PersonalInfo";
+import { GlobalPreference, PrivacySharing, LoginSecurity } from "../data/SETTINGS_DATA";
 
 export default function Settings() {
+    const [page, setPage] = useState("default");
     return (
-        <div className="w-full min-h-screen bg-background">
-            <div className="container mx-auto px-4 py-8">
-                <div className="max-w-[1080px] mx-auto">
-                    {/* Header */}
-                    <div className="mb-12">
-                        <h1 className="text-3xl font-semibold text-foreground mb-2">
-                            Settings
-                        </h1>
-                        <div className="text-lg text-foreground">
-                            <span className="font-semibold">John Doe, </span>
-                            <span>hello@johndoe · </span>
-                            <button className="font-semibold underline">Go to profile</button>
-                        </div>
-                    </div>
-
-                    {/* Cards Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {settingsCards.map((card, index) => (
-                            <Card
-                                key={index}
-                                className="hover:shadow-lg transition-shadow duration-200"
-                            >
-                                <CardContent className="p-6">
-                                    <div className="mb-8">{card.icon}</div>
-                                    <div className="space-y-2">
-                                        <h3 className="font-semibold text-base text-foreground">
-                                            {card.title}
-                                        </h3>
-                                        <p className="text-sm text-muted-foreground">
-                                            {card.description}
-                                        </p>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <>
+            {page === "default" ? <Default setPage={setPage} /> : null}
+            {page === "Personal info" ? <PersonalInfo /> : null}
+            {page === "Login & security" ? <Layout setPage={setPage} title="Login And Security" description="Update your password and secure your account" options={LoginSecurity} /> : null}
+            {page === "Privacy & sharing" ? <Layout setPage={setPage} title="Privacy And Sharing" description="Manage your personal data, connected services, and data sharing settings" options={PrivacySharing} /> : null}
+            {page === "Global preferences" ? <Layout setPage={setPage} title="Global preferences" description="Set your default language, metrics, and timezone" options={GlobalPreference} /> : null}
+            {page === "Notifications" ? <Notifications /> : null}
+            {page === "Feedback & Support" ? <Feedback /> : null}
+        </>
     );
 };
 

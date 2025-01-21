@@ -1,66 +1,55 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Input } from '@mui/base/Input';
-import { Send } from "lucide-react";
+import { Leaf, Send } from "lucide-react";
 import React from "react";
+import { Button } from '../components/ui/Button';
 
 const messages = [
   {
-    type: "human",
-    content: "Hello! How can I improve my programming skills?",
+    type: "assistant",
+    content: "Hello! I'm your Carbon Footprint Assistant. How can I help you understand and reduce your carbon emissions today?",
+    timestamp: "12:04 AM",
   },
   {
-    type: "ai",
-    content:
-      "Hello! The first step to improve your programming skills is choosing a programming language. Do you have a specific language in mind?",
+    type: "user",
+    content: "I'd like to know more about my daily commute's carbon impact.",
+    timestamp: "12:04 AM",
   },
   {
-    type: "human",
-    content: "Yes, I think Python might be interesting. Where should I start?",
-  },
-  {
-    type: "ai",
-    content:
-      "Great choice! Start by learning basic concepts like variables, conditional statements, and loops. try to start small projects to gain practical experience.AI: You can start with writing a simple program like a calculator or a list manager.",
+    type: "assistant",
+    content: "Based on average calculations, a 20-mile daily car commute produces approximately 1.85 kg of CO2. Consider carpooling or using public transport to reduce this impact!",
+    timestamp: "12:05 AM",
   },
 ];
 
-export default function Chatbot (){
+export default function Chatbot() {
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-b from-[rgba(119,150,243,0.12)] to-[rgba(255,255,255,0.2)] p-4">
-      <div className="max-w-[753px] mx-auto mt-16 space-y-4">
-        {messages.map((message, index) => (
-          <Card
-            key={index}
-            className={`border-0 ${
-              message.type === "ai" ? "bg-[#cde4ff]" : "bg-white"
-            }`}
-          >
-            <CardContent className="p-1.5">
-              <p className="font-['Inter-Regular'] text-sm text-black leading-[22px]">
-                {message.content}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+    <Card className="w-full mx-auto h-screen flex flex-col">
+      <div className="bg-[#4654B0] p-4 flex items-center gap-2 text-white">
+        <Leaf className="h-6 w-6" />
+        <h1 className="text-xl font-semibold">Carbon Footprint Assistant</h1>
       </div>
-
-      <div className="fixed bottom-0 left-0 right-0 p-8 bg-themes-white-40 backdrop-blur-[146.92px]">
-        <div className="max-w-[1116px] mx-auto">
-          <Card className="bg-[#ecf5ff] border-0">
-            <CardContent className="p-4 flex items-center gap-4">
-              <Input
-                className="flex-1 bg-transparent border-0 placeholder:text-themes-black-20"
-                placeholder="Type message"
-              />
-              <button className="flex items-center justify-center">
-                <Send className="w-[29px] h-[29px]" />
-              </button>
-            </CardContent>
-          </Card>
+      <div className="flex-1 p-4">
+        <div className="space-y-4">
+          {messages.map((message, index) => (
+            <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[80%] rounded-lg p-4 ${message.type === "user" ? "bg-[#4654B0] text-white" : "bg-gray-100"}`}>
+                <p>{message.content}</p>
+                <span className="text-xs opacity-70 mt-1 block">{message.timestamp}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+      <div className="p-4 border-t">
+        <div className="flex gap-2">
+          <Input placeholder="Type your message about carbon emissions..." className="flex-1" />
+          <Button className="bg-[#4654B0]">
+            <Send className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </Card>
   );
-};
-
+}

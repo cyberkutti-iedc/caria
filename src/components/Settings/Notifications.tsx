@@ -3,8 +3,8 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-  } from "../components/ui/Accordion";
-  import { Card, CardContent } from "../components/ui/card";
+  } from "../ui/Accordion";
+  import { Card, CardContent } from "../ui/card";
   import React, { JSX } from "react";
   
   const securityOptions = [
@@ -18,7 +18,7 @@ import {
     },
   ];
   
-  export default function Desktop(): JSX.Element {
+  export default function Notifications() {
     return (
       <div className="flex justify-center w-full min-h-screen">
         <div className="w-full max-w-[1440px] p-16 bg-gradient-to-b from-[rgba(119,150,243,0.12)] to-[rgba(255,255,255,0.2)]">

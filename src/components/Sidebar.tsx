@@ -152,9 +152,9 @@ export default function Sidebar() {
       <SidebarItem
         icon={<BarChart3 size={20} />}
         text="Analytics"
-        active={false}
+        active={window.location.pathname == "/analetics" ? true : false}
         alert={false}
-        onClick={() => (window.location.pathname = "/")}
+        onClick={() => (window.location.pathname = "/analetics")}
       />
       <SidebarItem
         icon={<Settings size={20} />}
