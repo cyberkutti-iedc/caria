@@ -34,16 +34,16 @@ export function SidebarContainer({ children }: SidebarProps) {
           `}
           >
             <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-xs text-gray-600">Manager</span>
+              <h4 className="font-bold text-gray-800">Caria</h4>
+              <span className="text-xs text-gray-600">Software</span>
             </div>
           </div>
-          <button
+          {/*<button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button>
+          </button>*/ }
         </div>
 
         <SidebarContext.Provider value={{ expanded }}>
@@ -147,14 +147,14 @@ export default function Sidebar() {
         text="Devices"
         active={false}
         alert={false}
-        onClick={() => (window.location.pathname = "/")}
+        onClick={() => (window.location.pathname = "/devices")}
       />
       <SidebarItem
         icon={<BarChart3 size={20} />}
         text="Analytics"
-        active={window.location.pathname == "/analetics" ? true : false}
+        active={window.location.pathname == "/analytics" ? true : false}
         alert={false}
-        onClick={() => (window.location.pathname = "/analetics")}
+        onClick={() => (window.location.pathname = "/analytics")}
       />
       <SidebarItem
         icon={<Settings size={20} />}

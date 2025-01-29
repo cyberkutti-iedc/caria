@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
     BeakerIcon,
     BellDotIcon,
@@ -7,10 +8,8 @@ import {
     LockIcon,
     UserIcon,
 } from "lucide-react";
-import React from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
 
 const settingsCards = [
     {
@@ -52,6 +51,31 @@ interface DefaultProps {
 }
 
 export default function Default({ setPage }: DefaultProps) {
+    const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>("");
+
+    // Fetch email from the API when the component mounts
+    useEffect(() => {
+        const fetchInfo = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/info');  // Adjust the API URL if needed
+                const data = await response.json();
+                
+                // Find the email in the data based on the "label" key
+                const emailInfo = data.find((item: { label: string; value: string }) => item.label === "Email");
+                const nameInfo = data.find((item: { label: string; value: string }) => item.label === "Name");
+                if (emailInfo || nameInfo) {
+                    setEmail(emailInfo.value); // Set the email value if found
+                    setName(nameInfo.value);
+                }
+            } catch (error) {
+                console.error('Error fetching:', error);
+            }
+        };
+
+        fetchInfo();
+    }, []);
+
     return (
         <div className="w-full min-h-screen bg-background">
             <div className="container mx-auto px-4 py-8">
@@ -62,8 +86,8 @@ export default function Default({ setPage }: DefaultProps) {
                             Settings
                         </h1>
                         <div className="text-lg text-foreground">
-                            <span className="font-semibold">John Doe, </span>
-                            <span>hello@johndoe · </span>
+                            <span className="font-semibold">{name || 'Loading name...'} </span>
+                            <span>{email || 'Loading email...'}</span> {/* Display the fetched email */}
                         </div>
                     </div>
 
@@ -94,6 +118,3 @@ export default function Default({ setPage }: DefaultProps) {
         </div>
     );
 };
-
-
-

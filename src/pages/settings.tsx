@@ -9,8 +9,10 @@ import { GlobalPreference, PrivacySharing, LoginSecurity } from "../data/SETTING
 
 export default function Settings() {
     const [page, setPage] = useState("default");
-    return (
-        <>
+    return ( 
+
+    
+        <div className="ml-10">
             {page === "default" ? <Default setPage={setPage} /> : null}
             {page === "Personal info" ? <PersonalInfo /> : null}
             {page === "Login & security" ? <Layout setPage={setPage} title="Login And Security" description="Update your password and secure your account" options={LoginSecurity} /> : null}
@@ -18,7 +20,7 @@ export default function Settings() {
             {page === "Global preferences" ? <Layout setPage={setPage} title="Global preferences" description="Set your default language, metrics, and timezone" options={GlobalPreference} /> : null}
             {page === "Notifications" ? <Notifications /> : null}
             {page === "Feedback & Support" ? <Feedback /> : null}
-        </>
+            </div>
     );
 };
 
