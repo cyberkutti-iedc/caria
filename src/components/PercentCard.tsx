@@ -11,25 +11,32 @@ interface PercentCardProps {
   stats: Stat[];
 }
 
-export default function PercentCard({title, stats }: PercentCardProps) {
-
+export default function PercentCard({ title, stats }: PercentCardProps) {
+  if (stats.length === 0) {
+    return (
+      <div className="rounded-lg p-4 shadow-md bg-white w-full border border-slate-300">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">{title}</h3>
+        <p className="text-gray-500">No data available</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="rounded-lg pr-4 pl-4 shadow-md bg-white w-full border-1 border-slate-300">
-      <h3 className="text-lg font-semibold text-gray-800 m-2">{title}</h3>
+    <div className="rounded-lg p-4 shadow-md bg-white w-full border border-slate-300">
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">{title}</h3>
       {stats.map((stat, index) => (
-        <div key={index} className="flex h-[full/4] items-center mb-3">
-          {/* Icon */}
-          <div className="flex items-center justify-center bg-gray-100 rounded-lg text-lg mr-3">
+        <div key={index} className="flex items-center mb-4">
+          {/* Icon Placeholder */}
+          <div className="flex items-center justify-center bg-gray-100 rounded-lg text-lg mr-4">
             {/* {stat.icon} */}
           </div>
           {/* Details */}
           <div className="flex-1">
             <div className="text-sm text-gray-600">{stat.label}</div>
-            <div className="relative w-full h-2 bg-gray-200 rounded-full mt-1">
+            <div className="relative w-full h-2 bg-gray-200 rounded-full mt-2">
               <div
                 className={`absolute h-2 rounded-full ${stat.color}`}
-                style={{ width: `${stat.value}%` }}
+                style={{ width: `${Math.min(stat.value, 100)}%` }} // Ensuring value doesn't exceed 100
               ></div>
             </div>
           </div>
@@ -39,5 +46,4 @@ export default function PercentCard({title, stats }: PercentCardProps) {
       ))}
     </div>
   );
-};
-
+}

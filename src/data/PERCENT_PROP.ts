@@ -7,10 +7,10 @@ export const fetchData = async () => {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
     const data = await response.json();
-    console.log('Fetched data:', data); // Log the fetched data
-    return data; // Return data instead of modifying a variable
+    console.log('Fetched data:', data); // Log the fetched data for debugging
+    return data; // Return the fetched data
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error fetching data:', error); // Log error if fetching fails
     return []; // Return an empty array in case of failure
   }
 };

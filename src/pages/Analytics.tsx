@@ -41,11 +41,25 @@ export default function Analytics() {
         const response = await fetch("http://localhost:5000/api/metrics"); // Change the URL accordingly
         const data: MetricsResponse = await response.json();
 
-        // Update the state with the fetched data
-        setMetricsData(data.metricsData);
-        setEmissionCategories(data.emissionCategories);
+        // Ensure metricsData is an array before updating the state
+        if (Array.isArray(data.metricsData)) {
+          setMetricsData(data.metricsData);
+        } else {
+          console.error("Expected metricsData to be an array, but got:", data.metricsData);
+          setMetricsData([]); // Fallback to empty array
+        }
+
+        // Ensure emissionCategories structure is valid
+        if (data.emissionCategories) {
+          setEmissionCategories(data.emissionCategories);
+        } else {
+          console.error("Missing emissionCategories data:", data.emissionCategories);
+          setEmissionCategories({ most: [], least: [] }); // Fallback to empty emission categories
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
+        setMetricsData([]); // Fallback to empty array
+        setEmissionCategories({ most: [], least: [] }); // Fallback to empty emission categories
       } finally {
         setLoading(false);
       }
@@ -71,7 +85,7 @@ export default function Analytics() {
           <StatCard persent={''} trend={'up'} data={[]} {...metric} />
         </div>
       ))}
-      
+
       {/* Graph Component */}
       <div className="col-span-4 bg-white rounded-lg shadow-lg p-4 cursor-pointer hover:shadow-2xl" onClick={() => setGraph(true)}>
         <Graph />
@@ -81,13 +95,34 @@ export default function Analytics() {
     <div className="h-screen bg-gray-50 ml-10">
       <div className="min-w-full mx-auto p-6">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Analytics</h1>
-        
+
         {/* Timeframe and Device Selection */}
-        
+        <div className="flex justify-between mb-6">
+          {/* Timeframe Dropdown */}
+          <Dropdown>
+            <DropdownTrigger>
+              <Button className="bg-blue-500 text-white">{timeFrame}</Button>
+            </DropdownTrigger>
+            <DropdownMenu>
+              <DropdownItem onClick={() => setTimeFrame('All-Time')} key={''}>All-Time</DropdownItem>
+              <DropdownItem onClick={() => setTimeFrame('Last 30 Days')} key={''}>Last 30 Days</DropdownItem>
+              <DropdownItem onClick={() => setTimeFrame('Last Week')} key={''}>Last Week</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
 
           {/* Device Dropdown */}
-          
-       
+          <Dropdown>
+            <DropdownTrigger>
+              <Button className="bg-green-500 text-white">{device}</Button>
+            </DropdownTrigger>
+            <DropdownMenu>
+              <DropdownItem onClick={() => setDevice('all')} key={''}>All Devices</DropdownItem>
+              <DropdownItem onClick={() => setDevice('mobile')} key={''}>Mobile</DropdownItem>
+              <DropdownItem onClick={() => setDevice('desktop')} key={''}>Desktop</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+
         {/* Metrics Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
           {metricsData.map((metric, index) => (

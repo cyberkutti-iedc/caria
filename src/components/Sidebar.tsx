@@ -60,13 +60,14 @@ export function SidebarContainer({ children }: SidebarProps) {
                 alert={false}
                 onClick={() => {}}
               />
-              <SidebarItem
-                icon={<HelpCircle size={20} />}
-                text="Help"
-                active={false}
-                alert={false}
-                onClick={() => {}}
-              />
+            <SidebarItem
+  icon={<HelpCircle size={20} />}
+  text="Help"
+  active={false}
+  alert={false}
+  onClick={() => window.open("https://github.com/cyberkutti-iedc/caria", "_blank")}
+/>
+
             </ul>
           </SidebarContext.Provider>
         </div>

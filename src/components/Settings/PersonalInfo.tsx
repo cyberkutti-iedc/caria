@@ -4,8 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import React, { useEffect, useState } from 'react';
 
 export default function PersonalInfo() {
-  const [personalInfo, setPersonalInfo] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [personalInfo, setPersonalInfo] = useState<any>(null); // Now expecting a single object
+  const [isLoading, setIsLoading] = useState(true); // Set loading state to true initially
 
   // Fetch personal info from the server
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function PersonalInfo() {
       } catch (error) {
         console.error('Error fetching personal info:', error);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Set loading to false after the request is complete
       }
     };
 
@@ -48,17 +48,18 @@ export default function PersonalInfo() {
         <p className="text-sm text-[#717171] mb-12 text-center">
           Provide your personal details so we can keep in touch.
         </p>
+
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {personalInfo.length > 0 ? (
-            personalInfo.map((field, index) => (
+          {personalInfo ? (
+            Object.entries(personalInfo).map(([label, value], index) => (
               <Card
                 key={index}
                 className="bg-gradient-to-r from-[#d4e0ff] via-[#f0f7ff] to-[#e5f4ff] rounded-xl shadow-xl transition-all transform hover:scale-105 duration-300 ease-in-out"
               >
                 <CardContent className="p-6">
                   <div className="space-y-2">
-                    <p className="text-xs text-gray-600 font-medium">{field.label}</p>
-                    <p className="text-lg text-gray-900 font-semibold">{field.value}</p>
+                    <p className="text-xs text-gray-600 font-medium">{label}</p>
+                    <p className="text-lg text-gray-900 font-semibold">{String(value)}</p>
                   </div>
                 </CardContent>
               </Card>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import Calender from '../components/Calender';
 import '@coreui/coreui-pro/dist/css/coreui.min.css';
 import Graph from '../components/Graph';
@@ -7,7 +7,7 @@ import PercentCard from '../components/PercentCard';
 
 import { fetchStatData } from '../data/STAT_DATA';
 import { fetchData } from '../data/PERCENT_PROP';
-import { fetchEmission } from '../data/CHART_DATA'; // ✅ Corrected import
+import { fetchEmission } from '../data/CHART_DATA';
 
 // Define types
 interface Stat {
@@ -25,13 +25,36 @@ interface Emission {
 
 function Dashboard() {
   const [statData, setStatData] = useState<StatCardProps[] | null>(null);
-  const [dashStats, setDashStats] = useState<Stat[]>([{ label: "Loading...", value: 0, color: "" }]);
+  const [metricsData, setMetricsData] = useState<Stat[]>([]);
   const [emissionData, setEmissionData] = useState<Emission[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetching metrics data
+  useEffect(() => {
+    const fetchMetrics = async () => {
+      try {
+        const response = await fetch('/api/metrics');
+        const data = await response.json();
+
+        // Only extract the "most" data from the API response
+        if (data && data.emissionCategories && data.emissionCategories.most) {
+          setMetricsData(data.emissionCategories.most);
+        }
+      } catch (error) {
+        console.error('Error fetching metrics data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMetrics();
+  }, []);
+
+  // Fetching other data (stat data, dash stats, emissions)
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Using Promise.all to fetch data in parallel
         const [fetchedStatData, fetchedDashStats, fetchedEmissions] = await Promise.all([
           fetchStatData(),
           fetchData(),
@@ -39,12 +62,10 @@ function Dashboard() {
         ]);
 
         setStatData(fetchedStatData);
-        setDashStats(fetchedDashStats);
         setEmissionData(fetchedEmissions);
       } catch (error) {
-        console.error("Error loading data:", error);
-        setStatData([]);
-        setDashStats([]);
+        console.error('Error loading data:', error);
+        setStatData([]); // Set empty arrays in case of an error
         setEmissionData([]);
       } finally {
         setIsLoading(false);
@@ -54,16 +75,18 @@ function Dashboard() {
     loadData();
   }, []);
 
+  // Loading state
   if (isLoading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
 
+  // No data state
   if (!statData || statData.length === 0) {
     return <div className="flex items-center justify-center h-screen">No data available</div>;
   }
 
   return (
-    <div className="grid grid-cols-6 grid-rows-6 gap-3 p-3  h-screen ml-10"> {/* Added mr-4 here for right margin */}
+    <div className="grid grid-cols-6 grid-rows-6 gap-3 p-3 h-screen ml-10">
       {/* Stat Cards */}
       {statData.map((stat, index) => (
         <div key={index} className="row-span-1 col-span-1 bg-white border rounded border-slate-300 shadow-md">
@@ -83,24 +106,10 @@ function Dashboard() {
 
       {/* Percentage Stats */}
       <div className="row-span-2 col-span-3 bg-white pb-3">
-        <PercentCard title="Outcome Statistics" stats={dashStats} />
+        <PercentCard title="Most Frequent Emissions" stats={metricsData} />
       </div>
 
-      {/* Emissions Data */}
-      <div className="row-span-2 col-span-3 bg-white p-4 shadow-md rounded-md border">
-        <h2 className="text-xl font-semibold mb-2">Emissions Data</h2>
-        {emissionData.length > 0 ? (
-          <ul className="space-y-2">
-            {emissionData.map((emission, index) => (
-              <li key={index} className="p-2 border rounded-md bg-gray-100">
-                <strong>{emission.title}:</strong> {emission.value} ({emission.persent}, {emission.trend})
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No emissions data available.</p>
-        )}
-      </div>
+      
     </div>
   );
 }
