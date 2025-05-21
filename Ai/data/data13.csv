@@ -1,0 +1,2 @@
+Sl/No,Date,Time,Temperature,Humidity,CO_ppb,SO2_ppb,NO2_ppb,O3_ppb,CO2_ppm,PM2.5_ug/m3,PM10_ug/m3,AQI_PM2.5,AQI_PM10,Overall_AQI,Battery_Percentage,Rain_Detected
+1,2025-02-10,15:02:37,31.90,45.00,403.98,9.32,3.73,6.22,297.38,31.08,62.15,90,54,90,0.00,No
